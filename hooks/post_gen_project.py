@@ -12,7 +12,7 @@ def run_go_mod_tidy() -> bool:
         return False
 
 
-def set_script_permissions():
+def set_script_permissions() -> None:
     for path in pathlib.Path(".").glob("**/*.sh"):
         path.chmod(path.stat().st_mode | stat.S_IEXEC)
 
