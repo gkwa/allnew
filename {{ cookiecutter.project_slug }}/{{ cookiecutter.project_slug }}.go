@@ -5,12 +5,13 @@ import (
 	"log/slog"
 )
 
-func Execute() int {
-	options := Options{}
-	flag.StringVar(&options.LogLevel, "log-level", "info", "Log level (debug, info, warn, error), defult: info")
-	flag.StringVar(&options.LogFormat, "log-format", "", "Log format (text or json)")
+type Options struct {
+	LogFormat string
+	LogLevel  string
+}
 
-	flag.Parse()
+func Execute() int {
+	options := parseArgs()
 
 	logger, err := getLogger(options.LogLevel, options.LogFormat)
 	if err != nil {
@@ -24,4 +25,15 @@ func Execute() int {
 	slog.Info("test", "test", "Info")
 	slog.Error("test", "test", "Error")
 	return 0
+}
+
+func parseArgs() Options {
+	options := Options{}
+
+	flag.StringVar(&options.LogLevel, "log-level", "info", "Log level (debug, info, warn, error), defult: info")
+	flag.StringVar(&options.LogFormat, "log-format", "", "Log format (text or json)")
+
+	flag.Parse()
+
+	return options
 }
