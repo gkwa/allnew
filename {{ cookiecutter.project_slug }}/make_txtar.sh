@@ -1,6 +1,8 @@
-tmp=$(mktemp -d {{ cookiecutter.project_slug }}.XXXXX)
+#!/usr/bin/env bash
 
 set -e
+
+tmp=$(mktemp -d {{ cookiecutter.project_slug }}.XXXXX)
 
 if [ -z "${tmp+x}" ]; then
     echo "Error: \$tmp is not set."
