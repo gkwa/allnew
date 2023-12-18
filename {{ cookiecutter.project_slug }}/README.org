@@ -1,8 +1,10 @@
 * {{ cookiecutter.project_slug }}
 
+** summary
+
 This is a description of project {{ cookiecutter.project_slug }}.
 
-** Usage
+** usage
 
 Example:
 #+begin_example
