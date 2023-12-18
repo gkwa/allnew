@@ -1,12 +1,17 @@
 package {{ cookiecutter.project_slug }}
 
 import (
+	"flag"
 	"log/slog"
-
-	optmod "github.com/taylormonacelli/{{ cookiecutter.project_slug }}/options"
 )
 
-func Main(options optmod.Options) int {
+func Execute() int {
+	options := Options{}
+	flag.StringVar(&options.LogLevel, "log-level", "info", "Log level (debug, info, warn, error), defult: info")
+	flag.StringVar(&options.LogFormat, "log-format", "", "Log format (text or json)")
+
+	flag.Parse()
+
 	logger, err := getLogger(options.LogLevel, options.LogFormat)
 	if err != nil {
 		slog.Error("GetLogger", "error", err)
