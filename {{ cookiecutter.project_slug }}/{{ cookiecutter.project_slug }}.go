@@ -14,7 +14,7 @@ func Execute() int {
 
 	logger, err := getLogger(options.LogLevel, options.LogFormat)
 	if err != nil {
-		slog.Error("GetLogger", "error", err)
+		slog.Error("getLogger", "error", err)
 		return 1
 	}
 
