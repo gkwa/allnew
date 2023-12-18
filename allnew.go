@@ -18,5 +18,6 @@ func Main(options optmod.Options) int {
 
 	slog.Debug("test", "test", "Debug")
 	slog.Info("test", "test", "Info")
+	slog.Error("test", "test", "Error")
 	return 0
 }

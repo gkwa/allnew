@@ -21,6 +21,7 @@ $(BIN): $(GO_FILES) $(GO_DEPS)
 test: $(BIN)
 	./$(BIN) --log-level=info
 	./$(BIN) --log-level=debug
+	./$(BIN) --log-level=error
 
 .PHONY: pretty
 pretty: $(GO_FILES)
