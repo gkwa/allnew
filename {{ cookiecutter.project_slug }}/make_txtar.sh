@@ -4,13 +4,8 @@ set -e
 
 tmp=$(mktemp -d {{ cookiecutter.project_slug }}.XXXXX)
 
-if [ -z "${tmp+x}" ]; then
-    echo "Error: \$tmp is not set."
-    exit 1
-fi
-
-if [ -z "$tmp" ]; then
-    echo "Error: \$tmp is set but is an empty string."
+if [ -z "${tmp+x}" ] || [ -z "$tmp" ]; then
+    echo "Error: \$tmp is not set or is an empty string."
     exit 1
 fi
 
