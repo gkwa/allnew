@@ -19,6 +19,7 @@ rm -f $tmp/filelist.txt
 
 {
     rg --files . \
+        | grep -v $tmp/filelist.txt \
         | grep -vE '{{ cookiecutter.project_slug }}$' \
         | grep -v README.org \
         | grep -v make_txtar.sh \
@@ -27,8 +28,7 @@ rm -f $tmp/filelist.txt
         | grep -v Makefile \
         | grep -v logger.go \
         | grep -v options.go \
-        | grep -vE hooks/*.py \
-        # | grep -v cmd/main.go \
+        | grep -v cmd/main.go \
         # | grep -v {{ cookiecutter.project_slug }}.go \
 
 } | tee $tmp/filelist.txt
