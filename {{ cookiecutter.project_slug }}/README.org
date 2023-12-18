@@ -4,4 +4,8 @@ This is a description of my {{ cookiecutter.project_slug }}.
 
 ** Usage
 
-To use my project, run this command: ./{{ cookiecutter.project_slug }} --log-level=debug
+Example:
+#+begin_example
+make test
+./{{ cookiecutter.project_slug }} --log-level=debug
+#+end_example
