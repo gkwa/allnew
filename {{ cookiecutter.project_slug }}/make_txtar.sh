@@ -27,7 +27,6 @@ rm -f $tmp/filelist.txt
         | grep -v go.mod \
         | grep -v Makefile \
         | grep -v logger.go \
-        | grep -v options.go \
         | grep -v cmd/main.go \
         # | grep -v {{ cookiecutter.project_slug }}.go \
 
