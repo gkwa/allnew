@@ -1,3 +1,3 @@
-module github.com/taylormonacelli/{{ cookiecutter.project_slug }}
+module github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
 go 1.21.1
