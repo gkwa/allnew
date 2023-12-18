@@ -8,7 +8,11 @@ import (
 )
 
 func Main(options optmod.Options) int {
-	logger := logging.GetLogger(options.LogLevel, options.LogFormat)
+	logger, err := logging.GetLogger(options.LogLevel, options.LogFormat)
+	if err != nil {
+		slog.Error("GetLogger", "error", err)
+		return 1
+	}
 
 	slog.SetDefault(logger)
 
