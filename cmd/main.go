@@ -15,7 +15,7 @@ var (
 )
 
 func main() {
-	flag.StringVar(&logLevelString, "log-level", "info", "Default log level debug, info, warn, error. (defult: info)")
+	flag.StringVar(&logLevelString, "log-level", "info", "Log level (debug, info, warn, error), defult: info")
 	flag.StringVar(&logFormat, "log-format", "", "Log format (text or json)")
 
 	flag.Parse()
