@@ -9,5 +9,6 @@ This is a description of project {{ cookiecutter.project_slug }}.
 Example:
 #+begin_example
 make test
+./{{ cookiecutter.project_slug }} --help
 ./{{ cookiecutter.project_slug }} --log-level=debug
 #+end_example
