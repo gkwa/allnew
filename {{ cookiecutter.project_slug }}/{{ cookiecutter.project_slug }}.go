@@ -1,9 +1,9 @@
-package allnew
+package {{ cookiecutter.project_slug }}
 
 import (
 	"log/slog"
 
-	optmod "github.com/taylormonacelli/allnew/options"
+	optmod "github.com/taylormonacelli/{{ cookiecutter.project_slug }}/options"
 )
 
 func Main(options optmod.Options) int {

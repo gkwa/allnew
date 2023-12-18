@@ -4,8 +4,8 @@ import (
 	"flag"
 	"os"
 
-	"github.com/taylormonacelli/allnew"
-	optmod "github.com/taylormonacelli/allnew/options"
+	"github.com/taylormonacelli/{{ cookiecutter.project_slug }}"
+	optmod "github.com/taylormonacelli/{{ cookiecutter.project_slug }}/options"
 )
 
 func main() {
@@ -15,6 +15,6 @@ func main() {
 
 	flag.Parse()
 
-	code := allnew.Main(options)
+	code := {{ cookiecutter.project_slug }}.Main(options)
 	os.Exit(code)
 }

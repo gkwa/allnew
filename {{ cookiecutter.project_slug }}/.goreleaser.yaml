@@ -12,24 +12,24 @@ builds:
   main: cmd/main.go
   goarch:
   - amd64
-  binary: allnew
-  id: allnew
+  binary: {{ cookiecutter.project_slug }}
+  id: {{ cookiecutter.project_slug }}
 archives:
 - format: tar.gz
   name_template: |-
-    allnew_ {{- title .Os }}_ {{- if eq .Arch "amd64" }}x86_64
+    {{ cookiecutter.project_slug }}{%raw%}_ {{- title .Os }}_ {{- if eq .Arch "amd64" }}x86_64
                                {{- else if eq .Arch "386" }}i386
                                {{- else }}
                                {{ .Arch }}
                                {{ end }}
-                               {{- if .Arm }}v{{ .Arm }}{{ end }}
+                               {{- if .Arm }}v{{ .Arm }}{{ end }}{%endraw%}
   format_overrides:
   - goos: windows
     format: zip
 checksum:
   name_template: checksums.txt
 snapshot:
-  name_template: '{{ incpatch .Version }}-next'
+  {%raw%}name_template: '{{ incpatch .Version }}-next'{%endraw%}
 changelog:
   sort: asc
   filters:

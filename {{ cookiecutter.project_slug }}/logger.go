@@ -1,4 +1,4 @@
-package allnew
+package {{ cookiecutter.project_slug }}
 
 import (
 	"log/slog"
