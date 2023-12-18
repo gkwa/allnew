@@ -1,4 +1,4 @@
-tmp=$(mktemp -d /tmp/{{ cookiecutter.project_slug }}.XXXXX)
+tmp=$(mktemp -d {{ cookiecutter.project_slug }}.XXXXX)
 
 set -e
 
@@ -35,3 +35,5 @@ mkdir -p $tmp/{{ cookiecutter.project_slug }}
 tar xf $tmp/{{ cookiecutter.project_slug }}.tar -C $tmp/{{ cookiecutter.project_slug }}
 rg --files $tmp/{{ cookiecutter.project_slug }}
 txtar-c $tmp/{{ cookiecutter.project_slug }} | pbcopy
+
+rm -rf $tmp
