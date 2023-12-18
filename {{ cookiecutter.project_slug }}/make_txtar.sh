@@ -9,9 +9,6 @@ if [ -z "${tmp+x}" ] || [ -z "$tmp" ]; then
     exit 1
 fi
 
-rm -f $tmp/{{ cookiecutter.project_slug }}.tar
-rm -f $tmp/filelist.txt
-
 {
     rg --files . \
         | grep -v $tmp/filelist.txt \
