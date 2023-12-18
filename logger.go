@@ -1,4 +1,4 @@
-package logging
+package allnew
 
 import (
 	"log/slog"
@@ -7,7 +7,7 @@ import (
 	"github.com/taylormonacelli/littlecow"
 )
 
-func GetLogger(logLevelString, logFormat string) (*slog.Logger, error) {
+func getLogger(logLevelString, logFormat string) (*slog.Logger, error) {
 	logLevel, err := littlecow.LevelFromString(logLevelString)
 	if err != nil {
 		return nil, err
