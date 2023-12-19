@@ -19,14 +19,10 @@ $(BIN): $(GO_FILES) $(GO_DEPS)
 
 .PHONY: test
 test: $(BIN)
-	./$(BIN) --log-level=info
 	./$(BIN) --log-level=debug
-	./$(BIN) --log-level=error
 
 .PHONY: install
-install: $(GOPATH)/bin/$(BIN)
-
-$(GOPATH)/bin/$(BIN): $(BIN)
+install: $(BIN)
 	mv $(BIN) $(GOPATH)/bin/$(BIN)
 
 .PHONY: clean
