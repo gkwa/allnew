@@ -21,9 +21,11 @@ func Execute() int {
 
 	slog.SetDefault(logger)
 
-	slog.Debug("test", "test", "Debug")
-	slog.Info("test", "test", "Info")
-	slog.Error("test", "test", "Error")
+	err = run(options)
+	if err != nil {
+		slog.Error("run failed", "error", err)
+		return 1
+	}
 	return 0
 }
 
@@ -36,4 +38,13 @@ func parseArgs() Options {
 	flag.Parse()
 
 	return options
+}
+
+func run(options Options) error {
+	slog.Debug("test", "test", "Debug")
+	slog.Debug("test", "LogLevel", options.LogLevel)
+	slog.Info("test", "test", "Info")
+	slog.Error("test", "test", "Error")
+
+	return nil
 }
