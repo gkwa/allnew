@@ -25,7 +25,8 @@ def install_git_pre_commit() -> None:
     out = out.decode(sys.stdin.encoding)
     err = err.decode(sys.stdin.encoding)
 
-    config = pathlib.Path(".pre-commit-config.yaml")
+    _dir = pathlib.Path("support")
+    config = _dir / ".pre-commit-config.yaml"
     config.write_text(out)
 
     if err:
