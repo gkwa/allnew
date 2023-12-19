@@ -13,7 +13,7 @@ else
 endif
 
 $(BIN): $(GO_FILES) $(GO_DEPS)
-	$(MAKE) pretty
+	gofumpt -w $(GO_FILES)
 	go vet ./...
 	go build -o $(BIN) cmd/main.go
 
@@ -22,10 +22,6 @@ test: $(BIN)
 	./$(BIN) --log-level=info
 	./$(BIN) --log-level=debug
 	./$(BIN) --log-level=error
-
-.PHONY: pretty
-pretty: $(GO_FILES)
-	gofumpt -w $^
 
 .PHONY: install
 install: $(GOPATH)/bin/$(BIN)
