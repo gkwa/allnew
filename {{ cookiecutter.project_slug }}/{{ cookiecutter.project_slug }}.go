@@ -33,7 +33,7 @@ func parseArgs() Options {
 	options := Options{}
 
 	flag.StringVar(&options.LogLevel, "log-level", "info", "Log level (debug, info, warn, error), default: info")
-	flag.StringVar(&options.LogFormat, "log-format", "", "Log format (text or json)")
+	flag.StringVar(&options.LogFormat, "log-format", "text", "Log format (text or json)")
 
 	flag.Parse()
 
