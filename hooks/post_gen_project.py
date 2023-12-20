@@ -20,5 +20,4 @@ def set_script_permissions() -> None:
 if __name__ == "__main__":
     set_script_permissions()
     if not run_go_mod_tidy():
-        print("ERROR: go mod tidy failed.")
-        sys.exit(1)
+        print("ERROR: go mod tidy failed.", file=sys.stderr)
