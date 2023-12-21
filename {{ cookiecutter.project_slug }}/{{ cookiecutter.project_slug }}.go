@@ -1,6 +1,7 @@
 package {{ cookiecutter.project_slug }}
 
 import (
+	"fmt"
 	"flag"
 	"log/slog"
 )
@@ -9,6 +10,7 @@ type Options struct {
 	LogFormat string
 	LogLevel  string
 }
+
 
 func Execute() int {
 	options := parseArgs()
@@ -30,9 +32,13 @@ func Execute() int {
 }
 
 func parseArgs() Options {
+	const logLevelHelp = "Log level (debug, info, warn, error), default: info"
+
 	options := Options{}
 
-	flag.StringVar(&options.LogLevel, "log-level", "info", "Log level (debug, info, warn, error), default: info")
+	ll := flag.String("ll", "info", fmt.Sprintf("%s (shorthand)", logLevelHelp))
+	flag.StringVar(&options.LogLevel, "log-level", *ll, logLevelHelp)
+
 	flag.StringVar(&options.LogFormat, "log-format", "text", "Log format (text or json)")
 
 	flag.Parse()
