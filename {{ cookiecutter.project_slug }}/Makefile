@@ -14,7 +14,7 @@ endif
 
 $(BIN): $(GO_FILES) $(GO_DEPS)
 	gofumpt -w $(GO_FILES)
-	go vet ./...
+	golangci-lint run
 	go build -o $(BIN) cmd/main.go
 
 .PHONY: test
