@@ -2,20 +2,23 @@ package {{ cookiecutter.project_slug }}
 
 import (
 	"fmt"
-	"flag"
 	"log/slog"
+
+	"github.com/jessevdk/go-flags"
 )
 
-type Options struct {
-	LogFormat string
-	LogLevel  string
+var opts struct {
+	LogLevel  string `short:"l" long:"log-level" choice:"debug" choice:"info" choice:"warn" choice:"error" default:"info" required:"false"`
+	LogFormat string `long:"log-format" choice:"text" choice:"json" default:"text" required:"false"`
 }
 
-
 func Execute() int {
-	options := parseArgs()
+	_, err := flags.Parse(&opts)
+	if err != nil {
+		return 1
+	}
 
-	logger, err := getLogger(options.LogLevel, options.LogFormat)
+	logger, err := getLogger(opts.LogLevel, opts.LogFormat)
 	if err != nil {
 		slog.Error("getLogger", "error", err)
 		return 1
@@ -23,7 +26,7 @@ func Execute() int {
 
 	slog.SetDefault(logger)
 
-	err = run(options)
+	err = run()
 	if err != nil {
 		slog.Error("run failed", "error", err)
 		return 1
@@ -31,26 +34,11 @@ func Execute() int {
 	return 0
 }
 
-func parseArgs() Options {
-	const logLevelHelp = "Log level (debug, info, warn, error), default: info"
-
-	options := Options{}
-
-	ll := flag.String("ll", "info", fmt.Sprintf("%s (shorthand)", logLevelHelp))
-	flag.StringVar(&options.LogLevel, "log-level", *ll, logLevelHelp)
-
-	flag.StringVar(&options.LogFormat, "log-format", "text", "Log format (text or json)")
-
-	flag.Parse()
-
-	return options
-}
-
-func run(options Options) error {
-	slog.Debug("test", "test", "Debug")
-	slog.Debug("test", "LogLevel", options.LogLevel)
-	slog.Info("test", "test", "Info")
+func run() error {
+	slog.Debug("test", "LogLevel", opts.LogLevel)
 	slog.Error("test", "test", "Error")
+
+	fmt.Printf("LogLevel: %v\n", opts.LogLevel)
 
 	return nil
 }
