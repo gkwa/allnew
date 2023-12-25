@@ -7,12 +7,7 @@ import (
 	"github.com/taylormonacelli/littlecow"
 )
 
-func getLogger(logLevelString, logFormat string) (*slog.Logger, error) {
-	logLevel, err := littlecow.LevelFromString(logLevelString)
-	if err != nil {
-		return nil, err
-	}
-
+func getLogger(logLevel slog.Level, logFormat string) (*slog.Logger, error) {
 	opts := littlecow.NewHandlerOptions(logLevel, littlecow.RemoveTimestampAndTruncateSource)
 
 	var handler slog.Handler

@@ -19,7 +19,7 @@ $(BIN): $(GO_FILES) $(GO_DEPS)
 
 .PHONY: test
 test: $(BIN)
-	./$(BIN) --log-level=debug
+	./$(BIN) -v -v
 
 .PHONY: install
 install: $(BIN)
