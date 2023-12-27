@@ -13,6 +13,7 @@ else
 endif
 
 $(BIN): $(GO_FILES) $(GO_DEPS)
+	go mod tidy
 	gofumpt -w $(GO_FILES)
 	golangci-lint run
 	go build -o $(BIN) cmd/main.go
