@@ -38,28 +38,6 @@ func parseFlags() error {
 	return err
 }
 
-func setLogLevel() error {
-	switch {
-	case len(opts.Verbose) >= 2:
-		opts.logLevel = slog.LevelDebug
-	case len(opts.Verbose) == 1:
-		opts.logLevel = slog.LevelInfo
-	default:
-		opts.logLevel = slog.LevelWarn
-	}
-	return nil
-}
-
-func setupLogger() error {
-	logger, err := getLogger(opts.logLevel, opts.LogFormat)
-	if err != nil {
-		slog.Error("getLogger", "error", err)
-		return err
-	}
-	slog.SetDefault(logger)
-	return nil
-}
-
 func run() error {
 	slog.Debug("Debug", "currrent level", opts.logLevel)
 	slog.Info("Info", "currrent level", opts.logLevel)

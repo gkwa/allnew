@@ -18,3 +18,25 @@ func getLogger(logLevel slog.Level, logFormat string) (*slog.Logger, error) {
 
 	return slog.New(handler), nil
 }
+
+func setupLogger() error {
+	logger, err := getLogger(opts.logLevel, opts.LogFormat)
+	if err != nil {
+		slog.Error("getLogger", "error", err)
+		return err
+	}
+	slog.SetDefault(logger)
+	return nil
+}
+
+func setLogLevel() error {
+	switch {
+	case len(opts.Verbose) >= 2:
+		opts.logLevel = slog.LevelDebug
+	case len(opts.Verbose) == 1:
+		opts.logLevel = slog.LevelInfo
+	default:
+		opts.logLevel = slog.LevelWarn
+	}
+	return nil
+}
