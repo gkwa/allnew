@@ -7,7 +7,7 @@ import (
 )
 
 var opts struct {
-	LogFormat string `long:"log-format" choice:"text" choice:"json" default:"text" required:"false"`
+	LogFormat string `long:"log-format" choice:"text" choice:"json" default:"text" description:"Log format"`
 	Verbose   []bool `short:"v" long:"verbose" description:"Show verbose debug information, each -v bumps log level"`
 	logLevel  slog.Level
 }
