@@ -15,14 +15,17 @@ var opts struct {
 
 func Execute() int {
 	if err := parseFlags(); err != nil {
+		slog.Error("error parsing flags", "error", err)
 		return 1
 	}
 
 	if err := setLogLevel(); err != nil {
+		slog.Error("error setting log level", "error", err)
 		return 1
 	}
 
 	if err := setupLogger(); err != nil {
+		slog.Error("error setting up logger", "error", err)
 		return 1
 	}
 
