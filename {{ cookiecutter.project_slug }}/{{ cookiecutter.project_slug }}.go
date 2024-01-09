@@ -1,6 +1,7 @@
 package {{ cookiecutter.project_slug }}
 
 import (
+	"fmt"
 	"log/slog"
 
 	"github.com/jessevdk/go-flags"
