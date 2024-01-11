@@ -39,7 +39,10 @@ func Execute() int {
 
 func parseFlags() error {
 	_, err := flags.Parse(&opts)
-	return fmt.Errorf("parse flags failed: %w", err)
+	if err != nil {
+		return fmt.Errorf("parse flags failed: %w", err)
+	}
+	return nil
 }
 
 func run() error {
