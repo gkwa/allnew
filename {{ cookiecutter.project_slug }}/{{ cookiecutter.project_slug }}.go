@@ -16,16 +16,16 @@ var opts struct {
 var parser *flags.Parser
 
 func Execute() int {
-	parser = flags.NewParser(&opts, flags.Default)
+	parser = flags.NewParser(&opts, flags.HelpFlag)
 
 	if _, err := parser.Parse(); err != nil {
-		if err, ok := err.(*flags.Error); ok {
-			if err.Type == flags.ErrHelp {
-				return 0
-			}
-
+		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
 			parser.WriteHelp(os.Stdout)
+			return 0
 		}
+
+		parser.WriteHelp(os.Stderr)
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 
 		return 1
 	}
