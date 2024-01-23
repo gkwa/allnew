@@ -1,8 +1,8 @@
 package {{ cookiecutter.project_slug }}
 
 import (
-	"fmt"
 	"log/slog"
+	"os"
 
 	"github.com/jessevdk/go-flags"
 )
@@ -13,9 +13,20 @@ var opts struct {
 	logLevel  slog.Level
 }
 
+var parser *flags.Parser
+
 func Execute() int {
-	if err := parseFlags(); err != nil {
-		slog.Error("error parsing flags", "error", err)
+	parser = flags.NewParser(&opts, flags.Default)
+
+	if _, err := parser.Parse(); err != nil {
+		if err, ok := err.(*flags.Error); ok {
+			if err.Type == flags.ErrHelp {
+				return 0
+			}
+
+			parser.WriteHelp(os.Stdout)
+		}
+
 		return 1
 	}
 
@@ -35,14 +46,6 @@ func Execute() int {
 	}
 
 	return 0
-}
-
-func parseFlags() error {
-	_, err := flags.Parse(&opts)
-	if err != nil {
-		return fmt.Errorf("parse flags failed: %w", err)
-	}
-	return nil
 }
 
 func run() error {
