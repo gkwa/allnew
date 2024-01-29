@@ -1,0 +1,4 @@
+exec {{ cookiecutter.project_slug }} --verbose --verbose
+! stdout .
+stderr level=DEBUG
+stderr level=INFO

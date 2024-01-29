@@ -52,8 +52,6 @@ func Execute() int {
 func run() error {
 	slog.Debug("Debug", "currrent level", opts.logLevel)
 	slog.Info("Info", "currrent level", opts.logLevel)
-	slog.Warn("Warn", "currrent level", opts.logLevel)
-	slog.Error("Error", "currrent level", opts.logLevel)
 
 	return nil
 }

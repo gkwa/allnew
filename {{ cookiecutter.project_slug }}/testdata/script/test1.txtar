@@ -1,0 +1,3 @@
+exec {{ cookiecutter.project_slug }}
+! stdout .
+! stderr .

@@ -20,7 +20,7 @@ $(BIN): $(GO_FILES) $(GO_DEPS)
 
 .PHONY: test
 test: $(BIN)
-	./$(BIN) -v -v
+	go test
 
 .PHONY: install
 install: $(BIN)
