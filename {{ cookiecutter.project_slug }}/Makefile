@@ -1,31 +1,34 @@
 BIN := {{ cookiecutter.project_slug }}
 
-GOPATH := $(shell go env GOPATH)
+SRC := $(wildcard *.go **/*.go)
 
-ifeq ($(OS),Windows_NT)
-    GO_FILES := $(shell dir /S /B *.go)
-    GO_DEPS := $(shell dir /S /B go.mod go.sum)
-    CLEAN := del
-else
-    GO_FILES := $(shell find . -name '*.go')
-    GO_DEPS := $(shell find . -name go.mod -o -name go.sum)
-    CLEAN := rm -f
-endif
+.PHONY: all tidy fmt lint install clean
 
-$(BIN): $(GO_FILES) $(GO_DEPS)
+all: tidy fmt lint vet install
+
+.PHONY: tidy
+tidy:
 	go mod tidy
-	gofumpt -w $(GO_FILES)
-	golangci-lint run
-	go build -o $(BIN) cmd/main.go
 
-.PHONY: test
-test: $(BIN)
-	go test
+.PHONY: fmt
+fmt:
+	gofumpt -w .
+
+.PHONY: lint
+lint:
+	golangci-lint run
+
+.PHONY: vet
+vet:
+	go vet ./...
+
+$(BIN): $(SRC)
+	go build -o $@ cmd/main.go
 
 .PHONY: install
 install: $(BIN)
-	mv $(BIN) $(GOPATH)/bin/$(BIN)
+	go install
 
 .PHONY: clean
 clean:
-	$(CLEAN) $(BIN)
+	$(RM) $(BIN)
