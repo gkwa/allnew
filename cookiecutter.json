@@ -1,6 +1,7 @@
 {
-  "author": "Anonymous",
-  "github_username": "anonymous",
-  "project_name": "Cookiecutter Website Simple",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
+    "author": "Anonymous",
+    "project_name": "Cookiecutter Website Simple",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "github_username": "anonymous"
 }
+  
