@@ -35,7 +35,7 @@ check: .timestamps/.check.time
 build: $(BIN)
 
 $(BIN): .timestamps/.build.time
-	go build -ldflags "$(LDFLAGS)" -o $@ cmd/main.go
+	go build -ldflags "$(LDFLAGS)" -o $@ cmd/{{ cookiecutter.project_slug }}/main.go
 
 .timestamps/.build.time: $(SRC)
 	@mkdir -p .timestamps
@@ -77,8 +77,13 @@ vet: .timestamps/.vet.time
 	@touch $@
 
 .PHONY: install # go install
+<<<<<<< HEAD
 install:
 	go install -ldflags "$(LDFLAGS)"
+=======
+install: $(BIN)
+	go install -ldflags "$(LDFLAGS)" ./cmd/{{ cookiecutter.project_slug }}
+>>>>>>> 3d81f58 (Fix allnew)
 
 .PHONY: help # show makefile rules
 help:
