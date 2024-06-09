@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/rogpeppe/go-internal/testscript"
-	"github.com/taylormonacelli/{{ cookiecutter.project_slug }}"
+	"github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 )
 
 func TestMain(m *testing.M) {
