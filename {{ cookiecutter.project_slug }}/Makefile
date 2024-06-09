@@ -77,13 +77,8 @@ vet: .timestamps/.vet.time
 	@touch $@
 
 .PHONY: install # go install
-<<<<<<< HEAD
-install:
-	go install -ldflags "$(LDFLAGS)"
-=======
 install: $(BIN)
 	go install -ldflags "$(LDFLAGS)" ./cmd/{{ cookiecutter.project_slug }}
->>>>>>> 3d81f58 (Fix allnew)
 
 .PHONY: help # show makefile rules
 help:
