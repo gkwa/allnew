@@ -1,7 +1,7 @@
 BIN := {{ cookiecutter.project_slug }}
-PREFIX := github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/version
+PREFIX := github.com/{{ cookiecutter.github_username }}/$(BIN)/version
 
-SRC := $(wildcard *.go **/*.go)
+SRC := $(shell find . -name '*.go')
 
 DATE := $(shell date +"%Y-%m-%dT%H:%M:%SZ")
 GOVERSION := $(shell go version)
@@ -27,14 +27,14 @@ iterate: check $(BIN)
 .PHONY: check # lint and vet
 check: .timestamps/.check.time
 
-.timestamps/.check.time: tidy fmt lint vet
+.timestamps/.check.time: goimports tidy fmt lint vet
 	@mkdir -p .timestamps
 	@touch $@
 
 .PHONY: build # build
 build: $(BIN)
 
-$(BIN): .timestamps/.build.time
+$(BIN): .timestamps/.build.time .timestamps/.tidy.time
 	go build -ldflags "$(LDFLAGS)" -o $@ cmd/{{ cookiecutter.project_slug }}/main.go
 
 .timestamps/.build.time: $(SRC)
@@ -44,7 +44,15 @@ $(BIN): .timestamps/.build.time
 .PHONY: goreleaser # run goreleaser
 goreleaser: goreleaser --clean
 
-.PHONY: tidy # go tidy
+.PHONY: goimports # goimports-reviser
+goimports: .timestamps/.goimports.time
+.timestamps/.goimports.time: $(SRC)
+	goimports -w $(SRC)
+	goimports-reviser -output=file -set-alias -rm-unused -format $(SRC)
+	@mkdir -p .timestamps
+	@touch $@
+
+.PHONY: tidy # go mod tidy
 tidy: .timestamps/.tidy.time
 
 .timestamps/.tidy.time: go.mod go.sum
@@ -52,17 +60,22 @@ tidy: .timestamps/.tidy.time
 	@mkdir -p .timestamps
 	@touch $@
 
-.PHONY: fmt # go fmt
+.PHONY: fmt # gofumt
 fmt: .timestamps/.fmt.time
-
 .timestamps/.fmt.time: $(SRC)
-	gofumpt -w $(SRC)
+	gofumpt -extra -w $(SRC)
+	@mkdir -p .timestamps
+	@touch $@
+
+.PHONY: golines # golines
+golines: .timestamps/.golines.time
+.timestamps/.golines.time: $(SRC)
+	golines -w $(SRC)
 	@mkdir -p .timestamps
 	@touch $@
 
 .PHONY: lint # lint
 lint: .timestamps/.lint.time
-
 .timestamps/.lint.time: $(SRC)
 	golangci-lint run
 	@mkdir -p .timestamps
@@ -70,15 +83,20 @@ lint: .timestamps/.lint.time
 
 .PHONY: vet # go vet
 vet: .timestamps/.vet.time
-
 .timestamps/.vet.time: $(SRC)
 	go vet ./...
 	@mkdir -p .timestamps
 	@touch $@
 
+.PHONY: test # go test
+test:
+	go test ./...
+	@mkdir -p .timestamps
+	@touch $@
+
 .PHONY: install # go install
-install: $(BIN)
-	go install -ldflags "$(LDFLAGS)" ./cmd/{{ cookiecutter.project_slug }}
+install:
+	go install -ldflags "$(LDFLAGS)"
 
 .PHONY: help # show makefile rules
 help:
